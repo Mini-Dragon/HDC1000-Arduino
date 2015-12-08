@@ -1,6 +1,6 @@
 #include <Wire.h>
 #include "HDC1000.h"
-#define feedback 7
+#define feedback P1_5
  
 HDC1000 mySensor;
 //HDC1000 mySensor(0x40, 2) <-- DRDYn enabled and connected to Arduino pin 2 (allows for faster measurements).
@@ -38,6 +38,7 @@ void senddata(int data, int howmanybits){
 }
 
 void loop(){
+	int ad=analogRead(A2);
 	int t = mySensor.getRawTemp(); 
 	int h = mySensor.getRawHumi();
 	Serial.print(t);
@@ -45,6 +46,7 @@ void loop(){
 	Serial.println(h);
 	senddata(t, 16);
 	senddata(h, 16);
+	senddata(ad, 10);
 	digitalWrite(feedback, 0);
 	delay(5);
 }
