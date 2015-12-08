@@ -45,12 +45,26 @@ void HDC1000::setReadRegister(uint8_t reg){
 	else delay(20);	//using 20ms delay instead
 }
 
+/*void HDC1000::setReadRegister2(uint8_t reg){//added for LMP91000
+	Wire.beginTransmission(0x48);
+	Wire.write(reg);
+	Wire.endTransmission();
+}*/
+
 void HDC1000::setConfig(uint8_t config){
-	Wire.beginTransmission(_addr);
-	Wire.write(HDC1000_CONFIG); //accessing the configuration register
+	Wire.beginTransmission(_addr);//0x40
+	Wire.write(HDC1000_CONFIG); //accessing the configuration register address is 0x02
 	Wire.write(config); //sending the config bits (MSB)
 	Wire.write(0x00); //the last 8 bits must be zeroes
 	Wire.endTransmission();
+	Wire.beginTransmission(0x48);//for LMP91000
+	Wire.write(0x10);//choose TIA register
+	Wire.write(0x0b);//00001011
+	Wire.endTransmission();
+	/*Wire.beginTransmission(0x48);//for LMP91000
+	Wire.write(0x11);//choose REFCN register
+	Wire.write();//00001011
+	Wire.endTransmission();*/
 }
 
 uint16_t HDC1000::read16(){

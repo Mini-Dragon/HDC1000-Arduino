@@ -12,7 +12,7 @@ void setup(){
 }
 
 void senddata(int data, int howmanybits){
-	for(int i=howmanybits+1; i>=0; i--){
+	for(int i=howmanybits-1; i>=0; i--){
 		int b = ( data & (1 << i) ) >> i;
 		if (b==1){
 			for (int j=3; j>=0; j--){
@@ -40,11 +40,11 @@ void senddata(int data, int howmanybits){
 void loop(){
 	int t = mySensor.getRawTemp(); 
 	int h = mySensor.getRawHumi();
-        Serial.print(t);
-        Serial.print("'");
-        Serial.println(h);
-        senddata(t, 16);
-        senddata(h, 16);
-        digitalWrite(feedback, 0);
+	Serial.print(t);
+	Serial.print("'");
+	Serial.println(h);
+	senddata(t, 16);
+	senddata(h, 16);
+	digitalWrite(feedback, 0);
 	delay(5);
 }
