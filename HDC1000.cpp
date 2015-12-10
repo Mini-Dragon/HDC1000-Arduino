@@ -11,7 +11,7 @@ Released under GNU GPL v2.0 license.
 
 #include "HDC1000.h"
 #include "Wire.h"
-#include <util/delay.h>
+//#include <util/delay.h>
 
 HDC1000::HDC1000(uint8_t address, int drdyn_pin){
 	_addr = address;
